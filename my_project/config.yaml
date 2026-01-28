@@ -1,0 +1,88 @@
+# pypopRF configuration file
+#
+# Configuration options:
+#   work_dir: Root directory for project
+#   data_dir: Directory containing input files
+#   covariates: Dictionary of covariate raster files
+#   mastergrid: Path to mastergrid file
+#   mask: Path to mask file
+#   constrain: Path to file for constraining population dist.
+#   census_data: Path to census data file
+#   census_pop_column: Population column in census data
+#   census_id_column: ID column in census data
+#   log_scale: whether to train model on log(dens)
+#   output_dir: Directory for output files
+#   by_block: Whether to process data by block
+#   block_size: Processing block size [width, height]
+#   max_workers: Number of parallel workers
+#   show_progress: Whether to show progress bars
+#   logging: Settings for logging process
+#     level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+#     file: Log file name (default: pypoprf.log, saved in output directory)
+
+# Logging levels:
+#   DEBUG    - Detailed information for debugging
+#   INFO     - Confirmation that things are working as expected
+#   WARNING  - Something unexpected happened but process continues
+#   ERROR    - Serious problem, software is unable to perform function
+#   CRITICAL - Program cannot continue running
+#
+# Example covariates:
+#   covariates:
+#     key1: "path/to/raster1.tif"
+#     key2: "path/to/raster2.tif"
+#
+work_dir: .
+data_dir: data
+
+# Census data configuration
+census_data: census_xa.csv
+census_pop_column: pop
+census_id_column: id
+
+# Master grid for population distribution
+mastergrid: mastergrid_census2019.tif
+
+# Covariates - 18 covariates (đầy đủ)
+covariates:
+  # Built environment
+  built_surface: VNM_covariate_2019/vnm_built_S_GHS_U_wFGW_100m_v1_2019.tif
+  built_volume: VNM_covariate_2019/vnm_built_V_GHS_U_wFGW_100m_v1_2019.tif
+  
+  # Elevation and terrain
+  elevation: VNM_covariate_2019/vnm_elevation_merit103_100m_v1.tif
+  
+  # Infrastructure
+  highway_distance: VNM_covariate_2019/vnm_highway_dist_osm_2023_100m_v1.tif
+  road_intersection_distance: VNM_covariate_2019/vnm_rd_intrs_dist_osm_2023_100m_v1.tif
+  
+  # Water features
+  water_distance: VNM_covariate_2019/vnm_waterbodies_dist_osm_2023_100m_v1.tif
+  inland_water_distance: VNM_covariate_2019/vnm_dist_inland_water_100m_esa_2021_v1.tif
+  
+  # Night lights (population proxy)
+  nightlights: VNM_covariate_2019/vnm_viirs_nvf_2019_100m_v1.tif
+  
+  # Land cover classes
+  lc_11: VNM_covariate_2019/vnm_esalc_11_dst_2019_100m_v1.tif
+  lc_130: VNM_covariate_2019/vnm_esalc_130_dst_2019_100m_v1.tif
+  lc_140: VNM_covariate_2019/vnm_esalc_140_dst_2019_100m_v1.tif
+  lc_150: VNM_covariate_2019/vnm_esalc_150_dst_2019_100m_v1.tif
+  lc_160: VNM_covariate_2019/vnm_esalc_160_dst_2019_100m_v1.tif
+  lc_190: VNM_covariate_2019/vnm_esalc_190_dst_2019_100m_v1.tif
+  lc_200: VNM_covariate_2019/vnm_esalc_200_dst_2019_100m_v1.tif
+  lc_40: VNM_covariate_2019/vnm_esalc_40_dst_2019_100m_v1.tif
+  
+  # Other features
+  coastline_distance: VNM_covariate_2019/vnm_coastline_dst_100m_v1.tif
+log_scale: true
+output_dir: output
+by_block: true
+block_size:
+- 512
+- 512
+max_workers: 8
+show_progress: true
+logging:
+  level: INFO
+  file: pypoprf.log
